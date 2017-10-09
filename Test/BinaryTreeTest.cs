@@ -47,4 +47,26 @@ class BinaryTreeTest : nspec
         };
         
     }
+
+    void describe_get()
+    {
+        context["if the key is present in the tree"] = () =>
+        {
+            it["should return the value associated with the key"] = () =>
+            {
+                tree.insert(5, 7);
+                tree.get(5).ShouldBeEquivalentTo(7);
+              
+            };
+        };
+        context["if the key is not present in the tree"] = () =>
+        {
+            it["should return default"] = () =>
+            {
+                tree.get(0).ShouldBeEquivalentTo(null);
+                tree.insert(0, 0);
+                tree.get(0).ShouldBeEquivalentTo(0);
+            };
+        };
+    }
 }
