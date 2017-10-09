@@ -72,9 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BSTTest.cs" />
-    <Compile Include="DebuggerShim.cs" />
-    <Compile Include="NodeTest.cs" />
+    <Compile Include="BinaryTreeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
