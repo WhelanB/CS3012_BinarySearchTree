@@ -69,4 +69,20 @@ class BinaryTreeTest : nspec
             };
         };
     }
+
+    void describe_contains()
+    {
+        it["should return true if the value is present in the tree"] = () =>
+        {
+            tree.contains(8).ShouldBeEquivalentTo(false);
+            tree.insert(8, 8);
+            tree.contains(8).ShouldBeEquivalentTo(true);
+        };
+        it["should return false if the value is not present in the tree"] = () =>
+        {
+            tree.contains(8).ShouldBeEquivalentTo(true);
+            tree.delete(8);
+            tree.contains(8).ShouldBeEquivalentTo(false);
+        };
+    }
 }
