@@ -8,6 +8,7 @@ class BinaryTreeTest : nspec
 
     void before_each()
     {
+        System.Console.WriteLine("Before");
         tree = new BinaryTree<int, int?>();
     }
 
@@ -99,6 +100,33 @@ class BinaryTreeTest : nspec
         it["should remove the node with the associated key from the tree"] = () =>
         {
 
+        };
+    }
+
+    void describe_toString()
+    {
+        context["When an empty tree is supplied"] = () =>
+        {
+            it["should return '()' as a string"] = () =>
+            {
+                tree.ToString().ShouldBeEquivalentTo("()");
+            };
+        };
+        context["When a constructed tree is provided"] = () =>
+        {
+            it["should return the constructed tree as an inorder string"] = () =>
+            {
+                tree.insert(7, 7);   //        _7_
+                tree.insert(8, 8);   //      /     \
+                tree.insert(3, 3);   //    _3_      8
+                tree.insert(1, 1);   //  /     \
+                tree.insert(2, 2);   // 1       6
+                tree.insert(6, 6);   //  \     /
+                tree.insert(4, 4);   //   2   4
+                tree.insert(5, 5);   //        \
+                                     //         5
+                tree.ToString().ShouldBeEquivalentTo("(((()1(()2()))3((()4(()5()))6()))7(()8()))");
+            };
         };
     }
 }
