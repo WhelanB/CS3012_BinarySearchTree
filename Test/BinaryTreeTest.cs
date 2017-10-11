@@ -85,4 +85,20 @@ class BinaryTreeTest : nspec
             tree.contains(8).ShouldBeEquivalentTo(false);
         };
     }
+
+    void describe_delete()
+    {
+        it["should delete and update the root node when deleting"] = () =>
+        {
+
+        };
+        it["should update parent nodes when a non-leaf node is deleted"] = () =>
+        {
+
+        };
+        it["should remove the node with the associated key from the tree"] = () =>
+        {
+
+        };
+    }
 }
