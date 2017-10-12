@@ -4,11 +4,11 @@ using SoftwareEngineeringBST;
 
 class BinaryTreeTest : nspec
 {
-    BinaryTree<int?, int?> tree;
+    BinaryTree<int, int?> tree;
 
     void before_each()
     {
-        tree = new BinaryTree<int?, int?>();
+        tree = new BinaryTree<int, int?>();
     }
 
     void describe_insert()
@@ -133,19 +133,23 @@ class BinaryTreeTest : nspec
     {
         context["When the tree is empty"] = () =>
         {
-            it["should raise an exception"] = () =>
+            it["should return false"] = () =>
             {
-                tree.lowestCommonAncestor(5, 7).ShouldBeEquivalentTo(null);
+                int result;
+                tree.lowestCommonAncestor(5, 7, out result).ShouldBeEquivalentTo(false);
+                result.ShouldBeEquivalentTo(default(int));
             };
         };
 
         context["When one parameter is not present as a key in the tree"] = () =>
         {
-            it["should raise an exception"] = () =>
+            it["should return false and out default"] = () =>
             {
                 tree.insert(7, 7);
                 tree.insert(5, 5);
-                //should throw an exception about parameter
+                int result;
+                tree.lowestCommonAncestor(5, 8, out result).ShouldBeEquivalentTo(false);
+                result.ShouldBeEquivalentTo(default(int));
             };
         };
 
@@ -156,7 +160,9 @@ class BinaryTreeTest : nspec
                 tree.insert(7, 7);
                 tree.insert(5, 5);
                 tree.insert(8, 8);
-                tree.lowestCommonAncestor(5, 8).ShouldBeEquivalentTo(7);
+                int result;
+                tree.lowestCommonAncestor(5, 8, out result).ShouldBeEquivalentTo(true);
+                result.ShouldBeEquivalentTo(7);
             };
         };
     }
