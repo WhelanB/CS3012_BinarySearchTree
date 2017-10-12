@@ -4,12 +4,11 @@ using SoftwareEngineeringBST;
 
 class BinaryTreeTest : nspec
 {
-    BinaryTree<int, int?> tree;
+    BinaryTree<int?, int?> tree;
 
     void before_each()
     {
-        System.Console.WriteLine("Before");
-        tree = new BinaryTree<int, int?>();
+        tree = new BinaryTree<int?, int?>();
     }
 
     void describe_insert()
@@ -126,6 +125,38 @@ class BinaryTreeTest : nspec
                 tree.insert(5, 5);   //        \
                                      //         5
                 tree.ToString().ShouldBeEquivalentTo("(((()1(()2()))3((()4(()5()))6()))7(()8()))");
+            };
+        };
+    }
+
+    void describe_lowestCommonAncestor()
+    {
+        context["When the tree is empty"] = () =>
+        {
+            it["should raise an exception"] = () =>
+            {
+                tree.lowestCommonAncestor(5, 7).ShouldBeEquivalentTo(null);
+            };
+        };
+
+        context["When one parameter is not present as a key in the tree"] = () =>
+        {
+            it["should raise an exception"] = () =>
+            {
+                tree.insert(7, 7);
+                tree.insert(5, 5);
+                //should throw an exception about parameter
+            };
+        };
+
+        context["When both parameters are present in the tree"] = () =>
+        {
+            it["should return the lowest common ancestor of both parameters"] = () =>
+            {
+                tree.insert(7, 7);
+                tree.insert(5, 5);
+                tree.insert(8, 8);
+                tree.lowestCommonAncestor(5, 8).ShouldBeEquivalentTo(7);
             };
         };
     }
