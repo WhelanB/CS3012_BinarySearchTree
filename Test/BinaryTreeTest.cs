@@ -33,9 +33,12 @@ class BinaryTreeTest : nspec
         {
             it["should update the value of the key/value pair"] = () =>
             {
-                tree.get(5).ShouldBeEquivalentTo(5);
+                int? result;
+                tree.get(5, out result);
+                result.ShouldBeEquivalentTo(5);
                 tree.insert(5, 6);
-                tree.get(5).ShouldBeEquivalentTo(6);
+                tree.get(5, out result);
+                result.ShouldBeEquivalentTo(6);
             };
             it["should delete the key/value pair if the value is null"] = () =>
             {
@@ -44,28 +47,28 @@ class BinaryTreeTest : nspec
                 tree.insert(5, null);
                 tree.contains(5).ShouldBeEquivalentTo(false);
             };
-        };
-        
+        };   
     }
 
     void describe_get()
     {
         context["if the key is present in the tree"] = () =>
         {
-            it["should return the value associated with the key"] = () =>
+            it["should return true and return the value associated with the key"] = () =>
             {
                 tree.insert(5, 7);
-                tree.get(5).ShouldBeEquivalentTo(7);
-              
+                int? result;
+                tree.get(5, out result).ShouldBeEquivalentTo(true);
+                result.ShouldBeEquivalentTo(7);
             };
         };
         context["if the key is not present in the tree"] = () =>
         {
             it["should return default"] = () =>
             {
-                tree.get(0).ShouldBeEquivalentTo(null);
-                tree.insert(0, 0);
-                tree.get(0).ShouldBeEquivalentTo(0);
+                int? result;
+                tree.get(0, out result).ShouldBeEquivalentTo(false);
+                result.ShouldBeEquivalentTo(null);
             };
         };
     }
@@ -133,7 +136,7 @@ class BinaryTreeTest : nspec
     {
         context["When the tree is empty"] = () =>
         {
-            it["should return false"] = () =>
+            it["should return false and out default(key)"] = () =>
             {
                 int result;
                 tree.lowestCommonAncestor(5, 7, out result).ShouldBeEquivalentTo(false);
@@ -143,7 +146,7 @@ class BinaryTreeTest : nspec
 
         context["When one parameter is not present as a key in the tree"] = () =>
         {
-            it["should return false and out default"] = () =>
+            it["should return false and out default(key)"] = () =>
             {
                 tree.insert(7, 7);
                 tree.insert(5, 5);
