@@ -34,6 +34,7 @@ class BinaryTreeTest : nspec
             it["should update the value of the key/value pair"] = () =>
             {
                 int? result;
+                tree.insert(5, 5);
                 tree.get(5, out result);
                 result.ShouldBeEquivalentTo(5);
                 tree.insert(5, 6);

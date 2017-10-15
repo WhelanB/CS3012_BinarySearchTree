@@ -86,6 +86,65 @@ namespace SoftwareEngineeringBST
         }
         public Boolean delete(Tkey key)
         {
+            Tvalue result;
+            if (get(key, out result)!=false)
+            {
+               return delete(root, root, key);
+            }
+            return false;
+        }
+
+        private Boolean delete(Node parent, Node n, Tkey key)
+        {
+            if (parent == n && parent.left == null && parent.right == null)
+            {
+                root = null;
+                return true;
+            }
+            int cmp = key.CompareTo(n.key);
+            if (cmp < 0) { delete(n, n.left, key); }
+            if (cmp > 0) { delete(n, n.right, key); }
+            else if (cmp == 0)
+            {
+
+                if (n.left == null && n.right == null)
+                {
+                    if (parent.left != null && parent.left == n)
+                    {
+                        parent.left = null;
+                        return true;
+                    }
+                    else if (parent.right != null && parent.right == n)
+                    {
+                        parent.right = null;
+                        return true;
+                    }
+                }
+
+                if ((n.left != null) != (n.right != null))
+                {
+                    Node b = (n.left == null) ? n.right : n.left;
+                    if (parent.left != null && parent.left == n)
+                    {
+                        parent.left = b;
+                        return true;
+                    }
+                    else if (parent.right != null && parent.right == n)
+                    {
+                        parent.right = b;
+                        return true;
+                    }
+                }
+
+                if ((n.left != null) && (n.right != null))
+                {
+                    Node pred = n.left;
+                    while (pred.right != null)
+                    {
+                        pred = pred.right;
+                    }
+                }
+            }
             return false;
         }
 
