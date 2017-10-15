@@ -35,9 +35,10 @@ namespace SoftwareEngineeringBST
             return "";
 
         }
-        public bool contains(Tvalue i)
+        public bool contains(Tkey key)
         {
-            return true;
+            Tvalue res;
+            return get(key, out res);
         }
 
         public void insert(Tkey key, Tvalue val)
@@ -90,8 +91,35 @@ namespace SoftwareEngineeringBST
 
         public Boolean lowestCommonAncestor(Tkey a, Tkey b, out Tkey result)
         {
-            result = default(Tkey);
-            return false;
+            if (!(contains(a) && contains(b)))
+            {
+                result = default(Tkey);
+                return false;
+            }
+            else
+            {
+                return lowestCommonAncestor(root, a, b, out result);
+            }
+        }
+
+        private Boolean lowestCommonAncestor(Node root, Tkey a, Tkey b, out Tkey result)
+        {
+            if (root == null)
+            {
+                result = default(Tkey);
+                return false;
+            }
+            if (root.key.CompareTo(a) < 0 && root.key.CompareTo(b) < 0)
+            {
+                return lowestCommonAncestor(root.left, a, b, out result);
+            }
+            if (root.key.CompareTo(a) < 0 && root.key.CompareTo(b) < 0)
+            {
+                return lowestCommonAncestor(root.right, a, b, out result);
+            }
+            result = root.key;
+            return true;
+
         }
         private class Node
         {
