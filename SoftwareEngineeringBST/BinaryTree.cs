@@ -55,12 +55,34 @@ namespace SoftwareEngineeringBST
             else x.value = val;
             return x;
         }
+
         public Boolean get(Tkey key, out Tvalue result)
         {
-            result = default(Tvalue);
-            return false;
+            return get(root, key, out result);   
         }
 
+        private Boolean get(Node x, Tkey key, out Tvalue result)
+        {
+            if (x == null)
+            {
+                result = default(Tvalue);
+                return false;
+            }
+            int cmp = key.CompareTo(x.key);
+            if (cmp < 0)
+            {
+                return get(x.left, key, out result);
+            }
+            else if (cmp > 0)
+            {
+                return get(x.right, key, out result);
+            }
+            else
+            {
+                result = x.value;
+                return true;
+            }
+        }
         public Boolean delete(Tkey key)
         {
             return false;
