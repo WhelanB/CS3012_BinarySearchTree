@@ -42,9 +42,19 @@ namespace SoftwareEngineeringBST
 
         public void insert(Tkey key, Tvalue val)
         {
-
+            if (val == null) { delete(key); return; }
+            root = insert(root, key, val);
         }
 
+        private Node insert(Node x, Tkey key, Tvalue val)
+        {
+            if (x == null) return new Node(key, val);
+            int cmp = key.CompareTo(x.key);
+            if (cmp < 0) x.left = insert(x.left, key, val);
+            else if (cmp > 0) x.right = insert(x.right, key, val);
+            else x.value = val;
+            return x;
+        }
         public Boolean get(Tkey key, out Tvalue result)
         {
             result = default(Tvalue);
