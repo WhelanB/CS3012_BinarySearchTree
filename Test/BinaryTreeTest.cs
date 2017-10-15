@@ -47,7 +47,7 @@ class BinaryTreeTest : nspec
                 tree.insert(5, null);
                 tree.contains(5).ShouldBeEquivalentTo(false);
             };
-        };   
+        };
     }
 
     void describe_get()
@@ -83,8 +83,9 @@ class BinaryTreeTest : nspec
         };
         it["should return false if the value is not present in the tree"] = () =>
         {
+            tree.insert(8, 8);
             tree.contains(8).ShouldBeEquivalentTo(true);
-            tree.delete(8);
+            tree = new BinaryTree<int, int?>();
             tree.contains(8).ShouldBeEquivalentTo(false);
         };
     }
@@ -107,7 +108,7 @@ class BinaryTreeTest : nspec
                 tree.delete(8).ShouldBeEquivalentTo(true);
             };
         };
-        
+
     }
 
     void describe_toString()
