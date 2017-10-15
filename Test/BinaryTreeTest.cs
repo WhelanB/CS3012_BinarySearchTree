@@ -54,7 +54,7 @@ class BinaryTreeTest : nspec
     {
         context["if the key is present in the tree"] = () =>
         {
-            it["should return true and return the value associated with the key"] = () =>
+            it["should return true and return the value associated with the key in the out parameter"] = () =>
             {
                 tree.insert(5, 7);
                 int? result;
@@ -91,18 +91,23 @@ class BinaryTreeTest : nspec
 
     void describe_delete()
     {
-        it["should delete and update the root node when deleting"] = () =>
+        context["If the value is not present in the tree"] = () =>
         {
-
+            it["should return false if the key is not present in the delete function"] = () =>
+            {
+                tree.delete(8).ShouldBeEquivalentTo(false);
+            };
         };
-        it["should update parent nodes when a non-leaf node is deleted"] = () =>
+
+        context["If the value is present in the tree"] = () =>
         {
-
+            it["should remove the node with the associated key from the tree"] = () =>
+            {
+                tree.insert(8, 5);
+                tree.delete(8).ShouldBeEquivalentTo(true);
+            };
         };
-        it["should remove the node with the associated key from the tree"] = () =>
-        {
-
-        };
+        
     }
 
     void describe_toString()
