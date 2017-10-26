@@ -11,7 +11,41 @@ class DirectedAcyclicTest : nspec
         graph = new DirectedAcyclicGraph(10);
     }
 
-    void describe_toString()
+    void describe_AddEdge()
+    {
+        context["When the graph has no edges"] = () =>
+        {
+            it["add an edge between the two supplied nodes"] = () =>
+            {
+                graph.AddEdge(0, 1).ShouldBeEquivalentTo(true);
+            };
+        };
+        context["When edges are present in the graph"] = () =>
+        {
+            context["if the edge will not create a cycle"] = () =>
+            {
+                it["should return true and add the edge to the graph"] = () =>
+                {
+                    graph.AddEdge(0, 3).ShouldBeEquivalentTo(true);
+                    graph.AddEdge(3, 4).ShouldBeEquivalentTo(true);
+
+                };
+            };
+            context["if the edge will create a cycle"] = () =>
+            {
+                it["should return false and not add the edge to the graph"] = () =>
+                {
+                    graph.AddEdge(0, 3).ShouldBeEquivalentTo(true);
+                    graph.AddEdge(3, 4).ShouldBeEquivalentTo(true);
+                    graph.AddEdge(4, 5).ShouldBeEquivalentTo(true);
+                    graph.AddEdge(5, 0).ShouldBeEquivalentTo(false);
+                };
+            };
+            
+        };
+    }
+
+    void describe_ToString()
     {
         context["When an empty graph is supplied"] = () =>
         {
