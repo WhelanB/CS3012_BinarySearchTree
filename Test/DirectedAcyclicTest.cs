@@ -11,6 +11,28 @@ class DirectedAcyclicTest : nspec
         graph = new DirectedAcyclicGraph(10);
     }
 
+    void describe_RemoveEdge()
+    {
+        context["When the edge is not present in the graph"] = () =>
+        {
+            it["should return false and not modify the graph"] = () =>
+            {
+                graph.AddEdge(0, 3).ShouldBeEquivalentTo(true);
+                graph.AddEdge(3, 4).ShouldBeEquivalentTo(true);
+                graph.RemoveEdge(4, 5).ShouldBeEquivalentTo(false);
+            };
+        };
+        context["When the edge is presnet in the graph"] = () =>
+        {
+            it["should remove the edge from the graph"] = () =>
+            {
+                graph.AddEdge(0, 3).ShouldBeEquivalentTo(true);
+                graph.AddEdge(3, 4).ShouldBeEquivalentTo(true);
+                graph.RemoveEdge(3, 4).ShouldBeEquivalentTo(true);
+            };
+        };
+    }
+
     void describe_AddEdge()
     {
         context["When the graph has no edges"] = () =>
