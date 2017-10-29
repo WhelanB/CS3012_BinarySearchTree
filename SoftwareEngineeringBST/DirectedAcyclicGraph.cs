@@ -43,6 +43,16 @@ namespace SoftwareEngineeringBST
 
         }
 
+        public Boolean RemoveEdge(int v, int w)
+        {
+            if (adj[v].Contains(w))
+            {
+                adj[v].Remove(w);
+                return true;
+            }
+            return false;
+        }
+
         private void DfsVisit(int n)
         {
             if (marked[n] == 2)
