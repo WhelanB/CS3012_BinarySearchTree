@@ -19,7 +19,9 @@ class DirectedAcyclicTest : nspec
             {
                 graph.AddEdge(0, 3).ShouldBeEquivalentTo(true);
                 graph.AddEdge(3, 4).ShouldBeEquivalentTo(true);
+                graph.ToString().Should().Match("0: 3\n3: 4\n");
                 graph.RemoveEdge(4, 5).ShouldBeEquivalentTo(false);
+                graph.ToString().Should().Match("0: 3\n3: 4\n");
             };
         };
         context["When the edge is presnet in the graph"] = () =>
@@ -28,7 +30,9 @@ class DirectedAcyclicTest : nspec
             {
                 graph.AddEdge(0, 3).ShouldBeEquivalentTo(true);
                 graph.AddEdge(3, 4).ShouldBeEquivalentTo(true);
+                graph.ToString().Should().Match("0: 3\n3: 4\n");
                 graph.RemoveEdge(3, 4).ShouldBeEquivalentTo(true);
+                graph.ToString().Should().Match("0: 3\n");
             };
         };
     }
@@ -39,7 +43,9 @@ class DirectedAcyclicTest : nspec
         {
             it["add an edge between the two supplied nodes"] = () =>
             {
+                graph.ToString().Should().Match("");
                 graph.AddEdge(0, 1).ShouldBeEquivalentTo(true);
+                graph.ToString().Should().Match("0: 1\n");
             };
         };
         context["When edges are present in the graph"] = () =>
@@ -48,8 +54,11 @@ class DirectedAcyclicTest : nspec
             {
                 it["should return true and add the edge to the graph"] = () =>
                 {
+                    graph.ToString().Should().Match("");
                     graph.AddEdge(0, 3).ShouldBeEquivalentTo(true);
+                    graph.ToString().Should().Match("0: 3\n");
                     graph.AddEdge(3, 4).ShouldBeEquivalentTo(true);
+                    graph.ToString().Should().Match("0: 3\n3: 4\n");
 
                 };
             };
@@ -60,10 +69,20 @@ class DirectedAcyclicTest : nspec
                     graph.AddEdge(0, 3).ShouldBeEquivalentTo(true);
                     graph.AddEdge(3, 4).ShouldBeEquivalentTo(true);
                     graph.AddEdge(4, 5).ShouldBeEquivalentTo(true);
+                    graph.ToString().Should().Match("0: 3\n3: 4\n4: 5\n");
                     graph.AddEdge(5, 0).ShouldBeEquivalentTo(false);
+                    graph.ToString().Should().Match("0: 3\n3: 4\n4: 5\n");
                 };
             };
             
+        };
+        context["If the node is not present in the graph"] = () =>
+        {
+            it["should return false"] = () =>
+            {
+                graph.AddEdge(0, 1000).ShouldBeEquivalentTo(false);
+                graph.AddEdge(-1, 0).ShouldBeEquivalentTo(false);
+            };
         };
     }
 
