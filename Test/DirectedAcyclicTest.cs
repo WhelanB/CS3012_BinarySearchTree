@@ -1,6 +1,7 @@
 ﻿using NSpec;
 using FluentAssertions;
 using SoftwareEngineeringBST;
+using System.Collections.Generic;
 
 class DirectedAcyclicTest : nspec
 {
@@ -34,6 +35,61 @@ class DirectedAcyclicTest : nspec
                 graph.RemoveEdge(3, 4).ShouldBeEquivalentTo(true);
                 graph.ToString().Should().Match("0: 3\n");
             };
+        };
+    }
+
+    void describe_LCA()
+    {
+        HashSet<int> result;
+        context["When there are no edges in the graph"] = () =>
+        {
+            it["should return false and out an empty collection"] = () =>
+            {
+                graph.LCA(0, 1, out result).ShouldBeEquivalentTo(false);
+                result.Count.ShouldBeEquivalentTo(0);
+            };
+        };
+        context["When there are edges in the graph"] = () =>
+        {
+            context["When either of the nodes supplied are not present in the graph"] = () =>
+            {
+                it["should return false and out an empty collection"] = () =>
+                {
+                    graph.LCA(100, 100, out result).ShouldBeEquivalentTo(false);
+                    result.Count.ShouldBeEquivalentTo(0);
+                };
+            };
+
+            context["When one of the nodes is a direct common ancestor of the other"] = () =>
+            {
+                it["should return said node as one of the lowest common ancestors"] = () =>
+                {
+                    graph.AddEdge(0, 1);
+                    graph.LCA(0, 1, out result).ShouldBeEquivalentTo(true);
+                    result.Contains(0).ShouldBeEquivalentTo(true);
+                };
+            };
+
+            context["In all other cases"] = () =>
+            {
+                it["should return true and out a HashSet containing the lowest common ancestors"] = () =>
+                {
+                    graph.AddEdge(0, 3);
+                    graph.AddEdge(1, 3);
+                    graph.AddEdge(1, 4);
+                    graph.AddEdge(2, 5);
+                    graph.AddEdge(2, 6);
+                    graph.AddEdge(3, 5);
+                    graph.AddEdge(3, 6);
+                    graph.AddEdge(4, 6);
+                    graph.LCA(5, 6, out result).ShouldBeEquivalentTo(true);
+                    result.Contains(2).ShouldBeEquivalentTo(true);
+                    result.Contains(3).ShouldBeEquivalentTo(true);
+                    
+
+                };
+            };
+
         };
     }
 
